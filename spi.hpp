@@ -1,4 +1,4 @@
-#ifndef
+#ifndef _SPI_H
 #define _SPI_H
 
 //based on http://www.raspberry-projects.com/pi/programming-in-c/spi/using-the-spi-interface
