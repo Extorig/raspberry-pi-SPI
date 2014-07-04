@@ -126,19 +126,14 @@ int SpiWriteAndRead (int spi_device, unsigned char *data, int length)
     struct spi_ioc_transfer spi;
     int retVal = -1;
 
-
-    //one spi transfer for each byte
-
-    for (i = 0 ; i < length ; i++)
-    {
-        spi.tx_buf        = (unsigned long)(data);
-        spi.rx_buf        = (unsigned long)(data);
-        spi.len           = sizeof(*data)*length;
-        spi.delay_usecs   = 0 ;
-        spi.speed_hz      = spi_speed ;
-        spi.bits_per_word = spi_bitsPerWord ;
-        spi.cs_change = 0;
-    }
+    //one spi transfer for all data
+    spi.tx_buf        = (unsigned long)(data);
+    spi.rx_buf        = (unsigned long)(data);
+    spi.len           = sizeof(*data)*length;
+    spi.delay_usecs   = 0 ;
+    spi.speed_hz      = spi_speed ;
+    spi.bits_per_word = spi_bitsPerWord ;
+    spi.cs_change = 0;
 
     if (spi_device)
         retVal = ioctl(spi_cs1_fd, SPI_IOC_MESSAGE(1), &spi);
